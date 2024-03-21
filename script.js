@@ -106,7 +106,7 @@ btn1.addEventListener('click',()=>{
     inputUsuario.value = ''
 })
 /*
-Função que é executada quando o botão de favorito é clicado
+Função qualquer que é executada quando o botão de favorito é clicado
 */
 
 const favoritoClicado = (eventoDeClique) => {
@@ -127,3 +127,23 @@ const favoritoClicado = (eventoDeClique) => {
       }
 
 }
+
+/*
+Função executada para remover o filme no localStorage
+*/
+
+function removeFromLocalStorage(id) {
+     //checa se já existe um campo de favoritos no LocalStorage
+    //se houver, ele salva no array filmesFavoritos
+    if(localStorage.getItem('favoritos')){
+        filmesFavoritos = JSON.parse(localStorage.getItem('favoritos'));
+    }
+    //procura no array o id do filme
+    const procurarFilme = filmesFavoritos.find(movie => movie.id === id)
+    //filtra todos os filmes que tem o id diferente do que foi encontrado e gera um novo array
+    const filmesFiltrados = filmesFavoritos.filter(movie => movie.id != procurarFilme.id)
+    //transforma o array em string para poder salvar no LocalStorage
+    const filmesFiltradosJSON = JSON.stringify(filmesFiltrados)
+    //guarda esse novo array no localStorage
+    localStorage.setItem('favoritos', filmesFiltradosJSON)
+  }
